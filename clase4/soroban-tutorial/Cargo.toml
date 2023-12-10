@@ -1,0 +1,27 @@
+[workspace]
+resolver="2"
+members= [
+    "contracts/*",
+]
+
+[workspace.dependencies]
+soroban-sdk = "=20.0.0-rc2.2"
+
+#configurar el perfil de release para optimizar el tamaño
+#los contratos en soroban no pueden exceder los 256kb, sin esto es virtualmente imposible
+[profile.release] 
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
+
+#notas: actualizar la version de rust usando
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
