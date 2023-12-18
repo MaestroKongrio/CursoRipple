@@ -1,0 +1,15 @@
+git clone -b v20.0.0-rc2 https://github.com/stellar/soroban-examples
+
+cd token
+cargo test
+
+soroban contract build
+
+target/wasm32-unknown-unknown/release/soroban_token_contract.wasm
+
+soroban contract invoke \
+    --wasm target/wasm32-unknown-unknown/release/soroban_token_contract.wasm \
+    --id 1 \
+    -- \
+    balance \
+    --id GBZV3NONYSUDVTEHATQO4BCJVFXJO3XQU5K32X3XREVZKSMMOZFO4ZXR
