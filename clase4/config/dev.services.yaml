@@ -1,0 +1,12 @@
+# dev.services.yaml
+version: 1
+
+assets:
+  type: file
+  value: /Users/patriciolopez/workspace/CursoRipple/clase4/config/dev.assets.yaml
+
+data:
+  type: postgres
+  server: db
+  database: platform
+  flyway_enabled: true

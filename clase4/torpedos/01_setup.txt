@@ -1,0 +1,32 @@
+//instalar rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+//instalar librerias basicas
+rustup target add wasm32-unknown-unknown
+
+//instalar el soroban commmand line interface
+cargo install --locked --version 20.0.0-rc.4.1 soroban-cli
+
+//autocomplete 
+echo "source <(soroban completion --shell bash)" >> ~/.bashrc
+
+//agregar la testnet
+soroban config network add --global testnet \
+  --rpc-url https://soroban-testnet.stellar.org:443 \
+  --network-passphrase "Test SDF Network ; September 2015"
+
+  //configurar una identidad, o mas de una
+  //esto crea un par de llaves y las asocia al nombre dado a la identidad
+  soroban config identity generate --global pato
+
+  soroban config identity generate --global pedro
+
+//esto nos muestra la llave publica asociada a la identidad
+  soroban config identity address pato
+
+//pedir fondos al friendbo
+//de esta forma, el comando funciona en las shells compatibles (Windows no, por ejemplo)
+//para esas shells, copiar la salida del comando anterior y reemplazar
+
+  curl "https://friendbot.stellar.org/?addr=$(soroban config identity address alice)"
+

@@ -1,0 +1,23 @@
+//Creamos el nuevo proyecto de Smart contract
+cargo new --lib hello-soroban
+
+
+soroban contract build
+
+//optimizar el build
+cargo install --locked --version 20.0.0-rc2 soroban-cli --features opt
+
+//deploy a la testnet
+soroban contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/hello_soroban.wasm \
+  --source pato \
+  --network testnet
+
+//invocar el contrato
+  soroban contract invoke \
+  --id $(cat .soroban/hello-id) \
+  --source alice \
+  --network testnet \
+  -- \
+  hello \
+  --to RPC

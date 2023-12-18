@@ -1,6 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import { Contract, networks } from 'hello-soroban-client';
+
+const greeter = new Contract({
+  ...networks.testnet,
+  rpcUrl: 'https://soroban-testnet.stellar.org', // from https://soroban.stellar.org/docs/reference/rpc#public-rpc-providers
+});
+
+const greeting = await greeter.hello({ to: 'Soroban' });
+
 ---
 
 <Layout title="Welcome to Astro.">
@@ -34,6 +43,7 @@ import Card from '../components/Card.astro';
 			</defs>
 		</svg>
 		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
+		<h1><span class="text-gradient">{greeting.join(' ')}</span></h1>
 		<p class="instructions">
 			To get started, open the directory <code>src/pages</code> in your project.<br />
 			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
